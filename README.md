@@ -5,12 +5,6 @@
 
 -----
 
-**Table of Contents**
-
-- whats-this-payload[#whats-this-payload]
-  - [Inspiration](#inspiration)
-  - [How to run?](#how-to-run)
-
 ## Inspiration
 Working with payload from webhooks can be really anoying. This tries to make the process easier.
 
@@ -21,7 +15,7 @@ Working with payload from webhooks can be really anoying. This tries to make the
 
 ## Install
 ```bash
-pip install git+ssh://git@github.com/Tomperez98/whats-this-payload.git
+pip install whats-this-payload
 ```
 
 ## Basic usage
@@ -39,5 +33,6 @@ payload_type = whatsapp_identifier(
 print(payload_type)
 # >> PayloadType.ANSWER_FROM_LIST_MESSAGE
 
-## Supported payloads (https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#list-messages)
+# Supported payloads 
+# (https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#list-messages)
 ```
