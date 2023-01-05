@@ -1,15 +1,15 @@
 """Identifier interface."""
 import abc
-from typing import Any
 
 from whats_this_payload.base.payload_type import BasePayloadType
+from whats_this_payload.typing import Payload
 
 
 class BaseIdentifier(abc.ABC):
     """Abstract class for identifier classes in charge of identify payload types."""
 
     @abc.abstractmethod
-    def __init__(self, payload: dict[Any, Any]) -> None:
+    def __init__(self, payload: Payload) -> None:
         """Constructor definition."""
 
     @abc.abstractmethod

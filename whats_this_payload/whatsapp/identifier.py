@@ -1,9 +1,9 @@
 """Whatsapp identifier class."""
-from typing import Any
 
 from whats_this_payload.base import BaseIdentifier
 from whats_this_payload.base.payload_type import BasePayloadType
 from whats_this_payload.exceptions import NotIdentifiedPayloadError
+from whats_this_payload.typing import Payload
 from whats_this_payload.utils import build_handler_chain
 from whats_this_payload.whatsapp.handlers import (
     AnswerFromListMessageHandler,
@@ -29,7 +29,7 @@ from whats_this_payload.whatsapp.handlers import (
 class WhatsappIdentifier(BaseIdentifier):
     """WhatsApp Identifier identifies the payload type of a whatsapp payload."""
 
-    def __init__(self, payload: dict[Any, Any]) -> None:
+    def __init__(self, payload: Payload) -> None:
         """Constructor."""
         self.payload = payload
         self.status_update_handler_chain = build_handler_chain(
@@ -68,7 +68,7 @@ class WhatsappIdentifier(BaseIdentifier):
             ]
         )
 
-    def _get_message_changes_from_payload(self) -> dict[Any, Any]:
+    def _get_message_changes_from_payload(self) -> Payload:
         return self.payload["entry"][0]["changes"][0]
 
     def identify_payload_type(self) -> BasePayloadType:

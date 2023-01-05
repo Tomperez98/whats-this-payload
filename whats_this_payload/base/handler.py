@@ -1,8 +1,9 @@
 """Base handler to implement a chain of responsability."""
 import abc
-from typing import Any, TypeVar, Union
+from typing import TypeVar, Union
 
 from whats_this_payload.base.payload_type import BasePayloadType
+from whats_this_payload.typing import Payload
 
 THandler = TypeVar("THandler", bound="BaseHandler")
 
@@ -18,7 +19,7 @@ class BaseHandler(abc.ABC):
         return handler
 
     @abc.abstractmethod
-    def handle(self, payload: dict[Any, Any]) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> BasePayloadType | None:
         """Evaluate the payload type."""
         if self._next_handler:
             return self._next_handler.handle(payload=payload)

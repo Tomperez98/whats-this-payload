@@ -1,13 +1,13 @@
 """Customed defined exceptions."""
 
 
-from typing import Any
+from whats_this_payload.typing import Payload
 
 
 class NotIdentifiedPayloadError(Exception):
     """Raised when a payload couldn't been identified."""
 
-    def __init__(self, payload: dict[Any, Any]) -> None:
+    def __init__(self, payload: Payload) -> None:
         """Constructor."""
         super().__init__(
             "payload=`{payload}` couldn't been identified.".format(payload=payload)
