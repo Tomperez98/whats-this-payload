@@ -174,8 +174,7 @@ addopts =[
   "--cov-fail-under=90", 
   "--cov-report=term-missing:skip-covered",
   "--cov-config=pyproject.toml",
-  "--cov=whats_this_payload",
-  "--cov=test"
+  "--cov=whats_this_payload"
 ]
 
 [tool.mypy]
