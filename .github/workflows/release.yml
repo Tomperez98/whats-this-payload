@@ -27,3 +27,15 @@ jobs:
         name: artifacts
         path: dist/*
         if-no-files-found: error
+
+  publish:
+    name: Publish release
+    needs:
+    - build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: artifacts
+        path: dist
