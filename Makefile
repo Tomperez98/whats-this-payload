@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := help
 SHELL:=/usr/bin/env bash
 OS = $(shell uname | tr A-Z a-z)
-sources = whats_this_payload tests
+sources = whats_this_payload tests scripts
 
 .PHONY: install-dev
 install-dev: ## Install dev dependencies (MAKE SURE YOU ARE WITHIN A VENV).
