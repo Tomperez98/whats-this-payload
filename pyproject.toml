@@ -37,13 +37,12 @@ dev = [
   "hatch",
   "mypy",
   "mkdocs-material",
-  "python-dotenv"
 ]
 
 [project.urls]
-Documentation = "https://github.com/Tomperez98/whats_this_payload#readme"
-Issues = "https://github.com/Tomperez98/whats_this_payload/issues"
-Source = "https://github.com/Tomperez98/whats_this_payload"
+Documentation = "https://github.com/Tomperez98/whats-this-payload#readme"
+Issues = "https://github.com/Tomperez98/whats-this-payload/issues"
+Source = "https://github.com/Tomperez98/whats-this-payload"
 
 [tool.hatch.version]
 path = "whats_this_payload/__about__.py"
