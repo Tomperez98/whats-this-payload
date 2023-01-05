@@ -7,13 +7,12 @@ on:
     branches: [main]
   
   paths:
-    - "!docs/**"
+    - "!**"
     - "scripts/**"
     - "requirements/**"
     - "tests/**"
     - "whats_this_payload/**"
-    - "Makefile"
-
+    - ".github/workflows/**"
 
 
 concurrency:
