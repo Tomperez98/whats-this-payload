@@ -23,3 +23,21 @@ Working with payload from webhooks can be really anoying. This tries to make the
 ```bash
 pip install git+ssh://git@github.com/Tomperez98/whats-this-payload.git
 ```
+
+## Basic usage
+```python
+from whats_this_payload import get_identifier
+
+whatsapp_identifier = get_identifier(webhook="whatsapp")
+
+webhook_payload_as_dict = payload.dict()
+
+payload_type = whatsapp_identifier(
+    payload=webhook_payload_as_dict
+).identify_payload_type()
+
+print(payload_type)
+# >> PayloadType.ANSWER_FROM_LIST_MESSAGE
+
+## Supported payloads (https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#list-messages)
+```

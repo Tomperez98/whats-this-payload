@@ -1,2 +1,0 @@
-import whats_this_payload
-from whats_this_payload.factory import get_identifier
