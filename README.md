@@ -12,11 +12,14 @@
   - [How to run?](#how-to-run)
 
 ## Inspiration
-Nor Pydantic, FastAPI, Ruff, ... seem to use `Poetry` to manage dependencies. In fact, since Poetry's last update to `v1.20` I have encounter quite a few problems running different project. Another huge issue is that `Poetry` does not respect the [PEP 621](https://peps.python.org/pep-0621/) standard which may cause issue when the project interacts with libraries that expect an standard format for the `pyproject.toml` file.
-
-This Template Project does not require any Package Manager, it runs purely with native Python solutions (`.venv`, for example) and sticks with `requirements.txt` files to manage dependencies (Which, btw, is the pythonic way to handle this).
+Working with payload from webhooks can be really anoying. This tries to make the process easier.
 
 ## How to run?
 - Create a virtual environment
 - Activate the environment
 - run `make install-dev `
+
+## Install
+```bash
+pip install git+ssh://git@github.com/Tomperez98/whats-this-payload.git
+```
