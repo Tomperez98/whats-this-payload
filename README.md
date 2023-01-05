@@ -1,4 +1,4 @@
-# whats_this_payload
+# whats-this-payload
 
 [![Build Status](https://github.com/Tomperez98/whats-this-payload/workflows/test/badge.svg?branch=main&event=push)](https://github.com/Tomperez98/whats-this-payload/actions?query=workflow%3Atest)
 ![black-python-styleguide](https://img.shields.io/badge/code%20style-black-000000.svg)

@@ -5,6 +5,15 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  
+  paths:
+    - "!docs/**"
+    - "scripts/**"
+    - "requirements/**"
+    - "tests/**"
+    - "whats_this_payload/**"
+
+
 
 concurrency:
   group: test-${{ github.head_ref }}
