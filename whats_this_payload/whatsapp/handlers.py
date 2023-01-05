@@ -27,10 +27,7 @@ class ReactionMessageHandler(BaseHandler):
 
     def handle(self, payload: dict[Any, Any]) -> BasePayloadType | None:
         """Handle implementation for reaction message."""
-        if (
-            payload["value"]["messages"][0].keys() >= {"reaction", "type"}
-            and payload["value"]["messages"][0]["type"] == "reaction"
-        ):
+        if payload["value"]["messages"][0]["type"] == "reaction":
             return PayloadType.REACTION_MESSAGE
         return super().handle(payload=payload)
 
@@ -40,10 +37,7 @@ class MediaMessageHandler(BaseHandler):
 
     def handle(self, payload: dict[Any, Any]) -> BasePayloadType | None:
         """Handle implementation for media message."""
-        if (
-            payload["value"]["messages"][0].keys() >= {"image", "type"}
-            and payload["value"]["messages"][0]["type"] == "image"
-        ):
+        if payload["value"]["messages"][0]["type"] == "image":
             return PayloadType.MEDIA_MESSAGE
         return super().handle(payload=payload)
 
@@ -53,10 +47,7 @@ class UnkownMessageHandler(BaseHandler):
 
     def handle(self, payload: dict[Any, Any]) -> BasePayloadType | None:
         """Handle implementation for unkown message."""
-        if (
-            payload["value"]["messages"][0].keys() >= {"type"}
-            and payload["value"]["messages"][0]["type"] == "unknown"
-        ):
+        if payload["value"]["messages"][0]["type"] == "unknown":
             return PayloadType.UNKNOWN_MESSAGE
         return super().handle(payload)
 
@@ -66,10 +57,7 @@ class UnsupportedMessageHandler(BaseHandler):
 
     def handle(self, payload: dict[Any, Any]) -> BasePayloadType | None:
         """Handle implementation for unkown message."""
-        if (
-            payload["value"]["messages"][0].keys() >= {"type"}
-            and payload["value"]["messages"][0]["type"] == "unsupported"
-        ):
+        if payload["value"]["messages"][0]["type"] == "unsupported":
             return PayloadType.UNSUPPORTED_MESSAGE
         return super().handle(payload)
 
@@ -101,10 +89,7 @@ class CallbackFromQuickReplyButtonHandler(BaseHandler):
 
     def handle(self, payload: dict[Any, Any]) -> BasePayloadType | None:
         """Handle implementation for callback from quick reply buttons."""
-        if (
-            payload["value"]["messages"][0].keys() >= {"button", "type"}
-            and payload["value"]["messages"][0]["type"] == "button"
-        ):
+        if payload["value"]["messages"][0]["type"] == "button":
             return PayloadType.CALLBACK_FROM_QUICK_REPLY_BUTTON
         return super().handle(payload)
 
@@ -115,10 +100,7 @@ class AnswerFromListMessageHandler(BaseHandler):
     def handle(self, payload: dict[Any, Any]) -> BasePayloadType | None:
         """Handle implementation for answer from list message."""
         if (
-            payload["value"]["messages"][0].keys() >= {"interactive", "type"}
-            and payload["value"]["messages"][0]["type"] == "interactive"
-            and payload["value"]["messages"][0]["interactive"].keys()
-            >= {"list_reply", "type"}
+            payload["value"]["messages"][0]["type"] == "interactive"
             and payload["value"]["messages"][0]["interactive"]["type"] == "list_reply"
         ):
             return PayloadType.ANSWER_FROM_LIST_MESSAGE
@@ -131,10 +113,7 @@ class AnswerToReplyButtonHandler(BaseHandler):
     def handle(self, payload: dict[Any, Any]) -> BasePayloadType | None:
         """Handle implementation."""
         if (
-            payload["value"]["messages"][0].keys() >= {"interactive", "type"}
-            and payload["value"]["messages"][0]["type"] == "interactive"
-            and payload["value"]["messages"][0]["interactive"].keys()
-            >= {"button_reply", "type"}
+            payload["value"]["messages"][0]["type"] == "interactive"
             and payload["value"]["messages"][0]["interactive"]["type"] == "button_reply"
         ):
             return PayloadType.ANSWER_TO_REPLY_BUTTON
@@ -146,9 +125,7 @@ class MessageTriggeredByClickOnAdsHandler(BaseHandler):
 
     def handle(self, payload: dict[Any, Any]) -> BasePayloadType | None:
         """Handle implementation."""
-        if "messages" in payload["value"] and payload["value"]["messages"][
-            0
-        ].keys() >= {"referral"}:
+        if payload["value"]["messages"][0].keys() >= {"referral"}:
             return PayloadType.MESSAGE_TRIGGERED_BY_CLICK_TO_ADS
         return super().handle(payload)
 

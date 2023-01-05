@@ -32,29 +32,39 @@ class WhatsappIdentifier(BaseIdentifier):
     def __init__(self, payload: dict[Any, Any]) -> None:
         """Constructor."""
         self.payload = payload
-        self.status_handler_chain = build_handler_chain(
+        self.status_update_handler_chain = build_handler_chain(
             handlers=[
                 StatusMessageSentHandler(),
                 StatusMessageDeliveredHandler(),
                 StatusMessageFailedHandler(),
             ]
         )
-        self.no_status_update_handler_chain = build_handler_chain(
+
+        self.interactive_message_handler_chain = build_handler_chain(
+            handlers=[
+                AnswerFromListMessageHandler(),
+                AnswerToReplyButtonHandler(),
+            ]
+        )
+        self.payloads_with_type_handler_chain = build_handler_chain(
             handlers=[
                 TextMessageHandler(),
                 ReactionMessageHandler(),
                 MediaMessageHandler(),
                 UnkownMessageHandler(),
-                LocationHandler(),
-                ContactHandler(),
+                UnsupportedMessageHandler(),
                 CallbackFromQuickReplyButtonHandler(),
-                AnswerFromListMessageHandler(),
-                AnswerToReplyButtonHandler(),
                 MessageTriggeredByClickOnAdsHandler(),
                 ProductInquiryMessageHandler(),
-                OrderMessageHandler(),
                 UserChangedNumberNotification(),
-                UnsupportedMessageHandler(),
+                OrderMessageHandler(),
+            ]
+        )
+
+        self.other_messages_handler_chain = build_handler_chain(
+            handlers=[
+                ContactHandler(),
+                LocationHandler(),
             ]
         )
 
@@ -66,11 +76,24 @@ class WhatsappIdentifier(BaseIdentifier):
         try:
             payload_changes = self._get_message_changes_from_payload()
             if "statuses" in payload_changes["value"]:
-                payload_type = self.status_handler_chain.handle(payload=payload_changes)
-            elif "messages" in payload_changes["value"]:
-                payload_type = self.no_status_update_handler_chain.handle(
+                payload_type = self.status_update_handler_chain.handle(
                     payload=payload_changes
                 )
+            elif "messages" in payload_changes["value"]:
+                if payload_changes["value"]["messages"][0].keys() >= {
+                    "interactive",
+                }:
+                    payload_type = self.interactive_message_handler_chain.handle(
+                        payload=payload_changes
+                    )
+                elif payload_changes["value"]["messages"][0].keys() > {"type"}:
+                    payload_type = self.payloads_with_type_handler_chain.handle(
+                        payload=payload_changes
+                    )
+                else:
+                    payload_type = self.other_messages_handler_chain.handle(
+                        payload=payload_changes
+                    )
             else:
                 raise NotIdentifiedPayloadError(payload=self.payload)
 
