@@ -6,8 +6,8 @@ import pathlib
 import pytest
 
 from whats_this_payload.exceptions import NotIdentifiedPayloadError
+from whats_this_payload.whatsapp import WhatsappIdentifier
 from whats_this_payload.whatsapp.enums import PayloadType
-from whats_this_payload.whatsapp.identifier import WhatsappIdentifier
 
 CWD = pathlib.Path().cwd()
 
