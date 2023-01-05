@@ -12,6 +12,7 @@ on:
     - "requirements/**"
     - "tests/**"
     - "whats_this_payload/**"
+    - "Makefile"
 
 
 
