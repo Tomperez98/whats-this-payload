@@ -11,7 +11,7 @@ Working with payload from webhooks can be really anoying. This tries to make the
 ## How to run?
 - Create a virtual environment
 - Activate the environment
-- run `make install-dev `
+- run `make install env=dev`
 
 ## Install
 ```bash
