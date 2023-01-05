@@ -196,6 +196,16 @@ class TestWhatsappIdentifier:
                     / "tests"
                     / "payload_samples"
                     / "whatsapp"
+                    / "status_message_failed.json"
+                ),
+                PayloadType.STATUS_MESSAGE_FAILED,
+            ),
+            (
+                (
+                    CWD
+                    / "tests"
+                    / "payload_samples"
+                    / "whatsapp"
                     / "status_message_deleted.json"
                 ),
                 PayloadType.UNSUPPORTED_MESSAGE,

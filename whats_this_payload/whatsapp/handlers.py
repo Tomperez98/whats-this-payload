@@ -215,5 +215,5 @@ class StatusMessageFailedHandler(BaseHandler):
     def handle(self, payload: dict[Any, Any]) -> BasePayloadType | None:
         """Handle implementation."""
         if payload["value"]["statuses"][0]["status"] == "failed":
-            return PayloadType.STATUS_MESSAGE_SENT
+            return PayloadType.STATUS_MESSAGE_FAILED
         return super().handle(payload)
