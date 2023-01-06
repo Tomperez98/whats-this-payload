@@ -22,7 +22,7 @@ pip install whats-this-payload
 ```python
 from whats_this_payload import get_identifier
 
-whatsapp_identifier = get_identifier(webhook="whatsapp")
+whatsapp_identifier = get_identifier(webhook="whatsapp") # or any other available integration.
 
 webhook_payload_as_dict = payload.dict()
 
