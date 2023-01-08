@@ -13,8 +13,9 @@ class TextMessageHandler(BaseHandler):
     def handle(self, payload: Payload) -> BasePayloadType | None:
         """Handle implementation for text message."""
         if (
-            payload["value"]["messages"][0].keys()
-            == {"from", "id", "timestamp", "text", "type"}
+            "referral" not in payload["value"]["messages"][0].keys()
+            and payload["value"]["messages"][0].keys()
+            >= {"from", "id", "timestamp", "text", "type"}
             and payload["value"]["messages"][0].keys() >= {"text", "type"}
             and payload["value"]["messages"][0]["type"] == "text"
         ):

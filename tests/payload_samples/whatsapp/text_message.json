@@ -21,6 +21,10 @@
                         ],
                         "messages": [
                             {
+                                "context": {
+                                    "from": "PHONE_NUMBER",
+                                    "id": "wamid.ID_REPLYING_TO"
+                                },
                                 "from": "PHONE_NUMBER",
                                 "id": "wamid.ID",
                                 "timestamp": "TIMESTAMP",

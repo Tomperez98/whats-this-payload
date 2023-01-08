@@ -55,9 +55,13 @@ class WhatsappIdentifier(BaseIdentifier):
                 UnsupportedMessageHandler(),
                 CallbackFromQuickReplyButtonHandler(),
                 MessageTriggeredByClickOnAdsHandler(),
-                ProductInquiryMessageHandler(),
                 UserChangedNumberNotification(),
                 OrderMessageHandler(),
+            ]
+        )
+        self.product_inquiry_handler_chain = build_handler_chain(
+            handlers=[
+                ProductInquiryMessageHandler(),
             ]
         )
 
@@ -71,6 +75,13 @@ class WhatsappIdentifier(BaseIdentifier):
     def _get_message_changes_from_payload(self) -> Payload:
         return self.payload["entry"][0]["changes"][0]
 
+    def _check_if_payload_changes_has_context(self, payload_changes: Payload) -> bool:
+        return (
+            True
+            if payload_changes["value"]["messages"][0].get("context", None)
+            else False
+        )
+
     def identify_payload_type(self) -> BasePayloadType:
         """Identify payload type from payload."""
         try:
@@ -80,7 +91,18 @@ class WhatsappIdentifier(BaseIdentifier):
                     payload=payload_changes
                 )
             elif "messages" in payload_changes["value"]:
-                if payload_changes["value"]["messages"][0].keys() >= {
+
+                if (
+                    self._check_if_payload_changes_has_context(
+                        payload_changes=payload_changes
+                    )
+                    and "referred_product"
+                    in payload_changes["value"]["messages"][0]["context"]
+                ):
+                    payload_type = self.product_inquiry_handler_chain.handle(
+                        payload=payload_changes
+                    )
+                elif payload_changes["value"]["messages"][0].keys() >= {
                     "interactive",
                 }:
                     payload_type = self.interactive_message_handler_chain.handle(
