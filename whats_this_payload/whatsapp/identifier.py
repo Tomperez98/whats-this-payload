@@ -76,11 +76,7 @@ class WhatsappIdentifier(BaseIdentifier):
         return self.payload["entry"][0]["changes"][0]
 
     def _check_if_payload_changes_has_context(self, payload_changes: Payload) -> bool:
-        return (
-            True
-            if payload_changes["value"]["messages"][0].get("context", None)
-            else False
-        )
+        return bool(payload_changes["value"]["messages"][0].get("context", None))
 
     def identify_payload_type(self) -> BasePayloadType:
         """Identify payload type from payload."""

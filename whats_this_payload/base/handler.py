@@ -19,7 +19,7 @@ class BaseHandler(abc.ABC):
         return handler
 
     @abc.abstractmethod
-    def handle(self, payload: Payload) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> Union[BasePayloadType, None]:
         """Evaluate the payload type."""
         if self._next_handler:
             return self._next_handler.handle(payload=payload)

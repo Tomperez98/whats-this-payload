@@ -1,6 +1,8 @@
 """Handler implementation for whatsapp chain of responsability."""
 
 
+from typing import Union
+
 from whats_this_payload.base import BaseHandler
 from whats_this_payload.base.payload_type import BasePayloadType
 from whats_this_payload.typing import Payload
@@ -10,7 +12,7 @@ from whats_this_payload.whatsapp.enums import PayloadType
 class TextMessageHandler(BaseHandler):
     """Handle for text message payload types."""
 
-    def handle(self, payload: Payload) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> Union[BasePayloadType, None]:
         """Handle implementation for text message."""
         if (
             "referral" not in payload["value"]["messages"][0].keys()
@@ -26,7 +28,7 @@ class TextMessageHandler(BaseHandler):
 class ReactionMessageHandler(BaseHandler):
     """Handle for reaction message payload types."""
 
-    def handle(self, payload: Payload) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> Union[BasePayloadType, None]:
         """Handle implementation for reaction message."""
         if payload["value"]["messages"][0]["type"] == "reaction":
             return PayloadType.REACTION_MESSAGE
@@ -36,7 +38,7 @@ class ReactionMessageHandler(BaseHandler):
 class MediaMessageHandler(BaseHandler):
     """Handle for media message payload types."""
 
-    def handle(self, payload: Payload) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> Union[BasePayloadType, None]:
         """Handle implementation for media message."""
         if payload["value"]["messages"][0]["type"] == "image":
             return PayloadType.MEDIA_MESSAGE
@@ -46,7 +48,7 @@ class MediaMessageHandler(BaseHandler):
 class UnkownMessageHandler(BaseHandler):
     """Handler for unkown message payload types."""
 
-    def handle(self, payload: Payload) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> Union[BasePayloadType, None]:
         """Handle implementation for unkown message."""
         if payload["value"]["messages"][0]["type"] == "unknown":
             return PayloadType.UNKNOWN_MESSAGE
@@ -56,7 +58,7 @@ class UnkownMessageHandler(BaseHandler):
 class UnsupportedMessageHandler(BaseHandler):
     """Handler for unsupported message payload types."""
 
-    def handle(self, payload: Payload) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> Union[BasePayloadType, None]:
         """Handle implementation for unkown message."""
         if payload["value"]["messages"][0]["type"] == "unsupported":
             return PayloadType.UNSUPPORTED_MESSAGE
@@ -66,7 +68,7 @@ class UnsupportedMessageHandler(BaseHandler):
 class LocationHandler(BaseHandler):
     """Handler for location message payload types."""
 
-    def handle(self, payload: Payload) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> Union[BasePayloadType, None]:
         """Handle implementation for location message."""
         if "messages" in payload["value"] and payload["value"]["messages"][
             0
@@ -78,7 +80,7 @@ class LocationHandler(BaseHandler):
 class ContactHandler(BaseHandler):
     """Handler for contact message payload types."""
 
-    def handle(self, payload: Payload) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> Union[BasePayloadType, None]:
         """Handle implementation for contact message."""
         if "contacts" in payload["value"]["messages"][0]:
             return PayloadType.CONTACT_MESSAGE
@@ -88,7 +90,7 @@ class ContactHandler(BaseHandler):
 class CallbackFromQuickReplyButtonHandler(BaseHandler):
     """Hanlder for callback from quick reply button payload types."""
 
-    def handle(self, payload: Payload) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> Union[BasePayloadType, None]:
         """Handle implementation for callback from quick reply buttons."""
         if payload["value"]["messages"][0]["type"] == "button":
             return PayloadType.CALLBACK_FROM_QUICK_REPLY_BUTTON
@@ -98,7 +100,7 @@ class CallbackFromQuickReplyButtonHandler(BaseHandler):
 class AnswerFromListMessageHandler(BaseHandler):
     """Handler for answer from list message payload types."""
 
-    def handle(self, payload: Payload) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> Union[BasePayloadType, None]:
         """Handle implementation for answer from list message."""
         if (
             payload["value"]["messages"][0]["type"] == "interactive"
@@ -111,7 +113,7 @@ class AnswerFromListMessageHandler(BaseHandler):
 class AnswerToReplyButtonHandler(BaseHandler):
     """Handler for answer to reply button message payload."""
 
-    def handle(self, payload: Payload) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> Union[BasePayloadType, None]:
         """Handle implementation."""
         if (
             payload["value"]["messages"][0]["type"] == "interactive"
@@ -124,7 +126,7 @@ class AnswerToReplyButtonHandler(BaseHandler):
 class MessageTriggeredByClickOnAdsHandler(BaseHandler):
     """Handler for message triggered by click on ads payload."""
 
-    def handle(self, payload: Payload) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> Union[BasePayloadType, None]:
         """Handle implementation."""
         if payload["value"]["messages"][0].keys() >= {"referral"}:
             return PayloadType.MESSAGE_TRIGGERED_BY_CLICK_TO_ADS
@@ -134,7 +136,7 @@ class MessageTriggeredByClickOnAdsHandler(BaseHandler):
 class ProductInquiryMessageHandler(BaseHandler):
     """Handler for product inquiry message payload type."""
 
-    def handle(self, payload: Payload) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> Union[BasePayloadType, None]:
         """Handle implementation."""
         if "context" in payload["value"]["messages"][0] and payload["value"][
             "messages"
@@ -146,7 +148,7 @@ class ProductInquiryMessageHandler(BaseHandler):
 class OrderMessageHandler(BaseHandler):
     """Handler for order message payload type."""
 
-    def handle(self, payload: Payload) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> Union[BasePayloadType, None]:
         """Handle implementation."""
         if "order" in payload["value"]["messages"][0]:
             return PayloadType.ORDER_MESSAGE
@@ -156,7 +158,7 @@ class OrderMessageHandler(BaseHandler):
 class UserChangedNumberNotification(BaseHandler):
     """Handler for user changed number notification payload type."""
 
-    def handle(self, payload: Payload) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> Union[BasePayloadType, None]:
         """Handle implementation."""
         if (
             "system" in payload["value"]["messages"][0]
@@ -170,7 +172,7 @@ class UserChangedNumberNotification(BaseHandler):
 class StatusMessageSentHandler(BaseHandler):
     """Handler for status message sent payload type."""
 
-    def handle(self, payload: Payload) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> Union[BasePayloadType, None]:
         """Handle implementation."""
         if payload["value"]["statuses"][0]["status"] == "sent":
             return PayloadType.STATUS_MESSAGE_SENT
@@ -180,7 +182,7 @@ class StatusMessageSentHandler(BaseHandler):
 class StatusMessageDeliveredHandler(BaseHandler):
     """Handler for status message delivered payload type."""
 
-    def handle(self, payload: Payload) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> Union[BasePayloadType, None]:
         """Handle implementation."""
         if payload["value"]["statuses"][0]["status"] == "delivered":
             return PayloadType.STATUS_MESSAGE_SENT
@@ -190,7 +192,7 @@ class StatusMessageDeliveredHandler(BaseHandler):
 class StatusMessageFailedHandler(BaseHandler):
     """Handler for status message failed payload type."""
 
-    def handle(self, payload: Payload) -> BasePayloadType | None:
+    def handle(self, payload: Payload) -> Union[BasePayloadType, None]:
         """Handle implementation."""
         if payload["value"]["statuses"][0]["status"] == "failed":
             return PayloadType.STATUS_MESSAGE_FAILED
