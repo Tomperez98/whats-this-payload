@@ -166,7 +166,7 @@ rfc3986[idna2008]==1.5.0
     # via httpx
 rich==13.0.1
     # via hatch
-ruff==0.0.216
+ruff==0.0.244
     # via whats_this_payload (pyproject.toml)
 secretstorage==3.3.3
     # via keyring
